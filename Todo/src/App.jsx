@@ -90,16 +90,27 @@ const Addandesearch = (e)=>{
 }
 
   return (
-    <>
+    
+    <div className="container">
        <h2>ToDo List</h2>
-        <div>
+        <div className="input-search">
           <input type="text" placeholder='Enter Task or search Task'  value={addtask} onChange={Addandesearch}/>
           
-          <button onClick={AddTasks}>Add task</button>
+          <button onClick={AddTasks} className='btn green'>Add Task</button>
         </div>
-        <div>
+        
           
-          <table>
+          <table className='table'>
+            <thead>
+          <tr>
+            <th>S.No</th>
+            <th>Done</th>
+            <th>Task</th>
+            
+            
+            <th>Delete</th>
+          </tr>
+        </thead>
             <tbody>
               {datas && search.map((data,index)=>{
                 return(
@@ -118,8 +129,9 @@ const Addandesearch = (e)=>{
           
           {length  ? `Just ${length} More to Go 🎯` : "List is Empty"  }
           
+       
         </div>
-    </>
+   
   )
 }
 
