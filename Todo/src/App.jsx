@@ -39,7 +39,7 @@ const AddTasks = async ()=>{
     
   }
   
-  const res = await axios.post("http://localhost:9000/add" , {title : addtask});
+  const res = await axios.post("https://todos-a47z.onrender.com/add" , {title : addtask});
   getAllusers();
   alert(res.data.message);
   if(res.data.success){
@@ -51,7 +51,7 @@ const AddTasks = async ()=>{
 
 const handleDone = async (id) =>{
   try {
-    const res = await axios.put(`http://localhost:9000/done/${id}`);
+    const res = await axios.put(`https://todos-a47z.onrender.com/done/${id}`);
     if(res.data.success){
       setDatas( data => data.map( to => to.id === id ? {...to , isDone : !to.isDone}: to));
     }
@@ -66,7 +66,7 @@ const deletetask = async (title ,id)=>{
   try{
     const isdelete = window.confirm(`You wamt to delete the Task ${title}`);
     if(isdelete){
-        const res = await axios.delete(`http://localhost:9000/delete/${id}`);
+        const res = await axios.delete(`https://todos-a47z.onrender.com/delete/${id}`);
         if(res.data.success){
           alert(res.data.message);
           
