@@ -13,7 +13,7 @@ const [datas , setDatas] = useState([]);
 const [length ,setLength] = useState(0);
 const [search , setSearch] = useState([]);
 const getAllusers = async ()=>{
-  await axios.get("http://localhost:9000/todos").then((res)=>{
+  await axios.get("https://todos-a47z.onrender.com/todos").then((res)=>{
     if(res.data.message){
       //alert(res.data.message);
       setDatas("");
