@@ -80,10 +80,10 @@ const deletetask = async (title ,id)=>{
   }
 }
 
-const handlesearch = (e)=>{
-  
+const Addandesearch = (e)=>{
+  setAddTask(e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1))
   const text = e.target.value.toUpperCase();
-  const se = addtask.filter((task)=>
+  const se = datas.filter((task)=>
     task.title.toUpperCase().includes(text)
   );
   setSearch(se);
@@ -93,15 +93,15 @@ const handlesearch = (e)=>{
     <>
        <h2>ToDo List</h2>
         <div>
-          <input type="text" placeholder='Enter Task'  value={addtask} onChange={(e)=>(setAddTask(e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1)))}/>
-          <input type="search" name="" id="" onChange={handlesearch}/>
+          <input type="text" placeholder='Enter Task or search Task'  value={addtask} onChange={Addandesearch}/>
+          
           <button onClick={AddTasks}>Add task</button>
         </div>
         <div>
           
           <table>
             <tbody>
-              {datas && datas.map((data,index)=>{
+              {datas && search.map((data,index)=>{
                 return(
                   <tr key={data.id}>
                     <td>{index +1}</td>
