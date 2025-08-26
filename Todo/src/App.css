@@ -56,8 +56,9 @@ outline: none;
 }
 .table {
 width: 100%;
-border-collapse: collapse;
-cursor: pointer;
+  border-collapse: collapse;
+  margin-bottom: 60px; /* same as footer height */
+
 }
 .table th,
 .table td {
@@ -65,7 +66,8 @@ border: 1px solid #cec8c8;
 padding: 8px;
 }
 .table th {
-background-color: #b2e7eb;
+background-color: #0b7285;
+color:aliceblue;
 }
 .table tr:nth-child(even) {
 background-color: #f2f2f2;
@@ -75,18 +77,29 @@ background-color: #ddf0f1;
 }
 th:nth-child(1), td:nth-child(1) {  /* S.No */
   width: 10%;
+  text-align: center;
 }
 
 th:nth-child(2), td:nth-child(2) {  /* Done */
+  text-align: center;
   width: 10%;
+}
+
+td:nth-child(2) input[type="checkbox"] {
+ 
+  accent-color: #06ebeb;
+  transform: scale(1.6);   /* slightly bigger checkbox */
+  cursor: pointer;
 }
 
 th:nth-child(3), td:nth-child(3) {  /* Task */
   width: 70%;   /* Flexible, can take more space */
   text-align: left;  /* Task text aligned left */
 }
+
 th:nth-child(4), td:nth-child(4) {  /* Delete */
   width: 10%;
+  text-align: center;
 }
 
 .modal {
@@ -135,4 +148,35 @@ padding: 8px;
 border-radius: 4px;
 border: 1px solid #ccc;
 outline: none;
+}
+
+.length{
+  position: fixed;
+  
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #0b7285;   /* your footer color */
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.delete-btn{
+  background: transparent;
+  border: none;
+  padding: 6px 10px;
+ 
+  cursor: pointer;
+  color: #fc0404;
+  font-size: 25px;
+  transition: 0.3s ease;
+}
+.load{
+  text-align: center;
+  margin-top: 20px;
+  color: #f80303;
+  font-size: 40px;
+  margin-bottom: 20px;
 }
