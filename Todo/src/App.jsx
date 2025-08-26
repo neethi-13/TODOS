@@ -12,17 +12,20 @@ const [addtask ,setAddTask] = useState("");
 const [datas , setDatas] = useState([]);
 const [length ,setLength] = useState(0);
 const [search , setSearch] = useState([]);
+const [loading , setLoading] = useState(true);
 const getAllusers = async ()=>{
   await axios.get("https://todos-a47z.onrender.com/todos").then((res)=>{
     if(res.data.message){
       //alert(res.data.message);
       setDatas("");
       setLength(0);
+      setLoading(false);
       return;
     }
     setDatas(res.data);
     setSearch(res.data)
     setLength(res.data.length);
+    setLoading(false);
   });
 } 
 useEffect(()=>{
@@ -91,6 +94,7 @@ const Addandesearch = (e)=>{
 
   return (
     
+
     <div className="container">
        <h2>ToDo List</h2>
         <div className="input-search">
@@ -98,7 +102,7 @@ const Addandesearch = (e)=>{
           
           <button onClick={AddTasks} className='btn green'>Add Task</button>
         </div>
-        
+        {loading && <h2 className='load'>Loading...</h2> }
           
           <table className='table'>
             <thead>
@@ -116,9 +120,9 @@ const Addandesearch = (e)=>{
                 return(
                   <tr key={data.id}>
                     <td>{index +1}</td>
-                    <td><input type="checkbox" name="" id="" checked={data.isDone} onChange={()=>{handleDone(data.id)}}/></td>
+                    <td><input type="checkbox"  className='checked' name="" id="" checked={data.isDone} onChange={()=>{handleDone(data.id)}}/></td>
                     <td>{data.title}</td>
-                    <td><button onClick={()=>{deletetask(data.title ,data.id )}}>{((index+1)%2 ===0 )? <BsTrash />:<BsTrashFill /> }</button></td>
+                    <td><button className='delete-btn' onClick={()=>{deletetask(data.title ,data.id )}}>{((index+1)%2 ===0 )? <BsTrash />:<BsTrashFill /> }</button></td>
                   </tr>
                 )
               })}
@@ -127,8 +131,10 @@ const Addandesearch = (e)=>{
 
           
           
-          {length  ? `Just ${length} More to Go 🎯` : "List is Empty"  }
+          <div className="length">
+           <h2>{length  ? `Just ${length} More to Go 🎯` : "List is Empty"  }</h2> 
           
+          </div>
        
         </div>
    
