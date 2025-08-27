@@ -46,6 +46,7 @@ display: flex;
 gap:20px;
 align-items: center;
 margin-bottom: 20px;
+margin-top: 70px;
 }
 .input-search input {
 width: 300px;
@@ -179,4 +180,17 @@ outline: none;
   color: #f80303;
   font-size: 40px;
   margin-bottom: 20px;
+}
+.nav{
+  position: fixed;
+  
+ top: 0;
+  left: 0;
+  width: 100%;
+  background: #0b7285;   /* your footer color */
+  color: white;
+  text-align: center;
+  padding: 10px;
+  font-size: 14px;
+  z-index: 1;
 }
