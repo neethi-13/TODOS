@@ -15,6 +15,7 @@ const [search , setSearch] = useState([]);
 const [loading , setLoading] = useState(true);
 const getAllusers = async ()=>{
   await axios.get("https://todos-a47z.onrender.com/todos").then((res)=>{
+    setLoading(true);
     if(res.data.message){
       //alert(res.data.message);
       setDatas("");
@@ -96,7 +97,8 @@ const Addandesearch = (e)=>{
     
 
     <div className="container">
-       <h2>ToDo List</h2>
+      <div className="nav"><h2>ToDo List</h2></div>
+       
         <div className="input-search">
           <input type="text" placeholder='Enter Task or search Task'  value={addtask} onChange={Addandesearch}/>
           
