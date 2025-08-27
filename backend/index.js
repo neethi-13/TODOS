@@ -14,6 +14,60 @@ mongoose.connect(process.env.MONGO_URI).then(()=>{
     console.error(err);
 });
 
+const registerSchema = new mongoose.Schema({
+    name: {
+        type: String, 
+        required: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true
+    }
+})
+const user = mongoose.model("Registers" , registerSchema , "Registers");
+app.post('/register' , async (req ,res)=>{
+    const {name , email , password} = req.body;
+    try {
+      const us = await user.findOne({email:email});
+      if(us){
+        res.json({success:false , message:"User Already Registered"});
+        return;
+      }
+      const newuser = new user({name , email , password});
+      await newuser.save();
+      res.json({success:true , message:"Registered Successfully"});
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({message:"Server Error"});
+    }
+})
+
+app.post('/login' , async (req, res)=>{
+    const {email , password} = req.body;
+    try {
+      const us = await user.findOne({email:email});
+      if(us){
+        if(us.password === password){
+          res.json({success:true , message:"Login Successful"});
+        }else{
+          res.json({success:false , message:"Invalid Password"});
+        }
+      }else{
+        res.json({success:false , message:"User Not Registered"});
+      }
+
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({success:false , message:"Server Error"})
+    }
+})
+
+
 const TodoSchema = new mongoose.Schema({
    id: {
     type: Number,
