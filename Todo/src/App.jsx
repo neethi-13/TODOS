@@ -2,9 +2,9 @@
 import { useState } from 'react'
 import './App.css'
 import axios from 'axios';
-import { useEffect } from 'react';
-import { FaTrash } from "react-icons/fa";  
-import { MdDelete } from "react-icons/md";
+//import { useEffect } from 'react';
+// import { FaTrash } from "react-icons/fa";  
+// import { MdDelete } from "react-icons/md";
 import { BsTrash, BsTrashFill } from "react-icons/bs";
 function App() {
   
@@ -13,6 +13,15 @@ const [datas , setDatas] = useState([]);
 const [length ,setLength] = useState(0);
 const [search , setSearch] = useState([]);
 const [loading , setLoading] = useState(true);
+const [login, setLogin] = useState(true);
+const [register, setRegister] = useState(false);
+const [name,setName] = useState("");
+const [email, setEmail] = useState("");
+
+const [forget , setFroget] = useState(true);
+const [password, setPassword] = useState("");
+const [confirm, setConfirm] = useState("");
+
 const getAllusers = async ()=>{
   await axios.get("https://todos-a47z.onrender.com/todos").then((res)=>{
     setLoading(true);
@@ -29,9 +38,9 @@ const getAllusers = async ()=>{
     setLoading(false);
   });
 } 
-useEffect(()=>{
-getAllusers();
-},[])
+// useEffect(()=>{
+// getAllusers();
+// },[])
 
 
 
@@ -92,10 +101,118 @@ const Addandesearch = (e)=>{
   );
   setSearch(se);
 }
+const Registers = async (e)=>{
+  e.preventDefault();
+  try {
+    if(password !== confirm){
+      alert("Password and Confirm Password are not same");
+      return;
+    }
+    const res = axios.post("https://todos-a47z.onrender.com/register" , {name:name,email:email,password:password});
+    if(res.data.success){
+      alert(res.data.message);
+      setLogin(true);
+      setName("");
+      setEmail("");
+      setPassword("");
+      setConfirm("");
+    }
+    else{
+      alert(res.data.message);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
 
+const Logins = async (e)=>{
+  e.preventDefault();
+  try {
+    const res = await axios.post("https://todos-a47z.onrender.com/login" , {email:email,password:password});
+    if(res.data.success){
+      alert(res.data.message);
+      setLogin(false);
+      setEmail("");
+      setPassword("");
+      getAllusers();
+      
+    }
+    else{
+      alert(res.data.message);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+const Frogetpass = async (e) =>{
+  e.preventDefault();
+}
   return (
     
 
+    <>
+    {login && forget && 
+      <> <h2>Login Page </h2>
+    <form onSubmit={Logins}>
+      {/* <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required/>
+      <br /> <br /> */}
+      <label htmlFor="email">Email:</label>
+      <input type="text" id="email" name="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)}  required/>
+      <br /> <br />
+      <label htmlFor="password" >Password:</label>
+      <input type="password" id="password" name="password" onChange={(e) => setPassword(e.target.value)} required/>
+      <br></br> <br /> 
+      
+      <button type="submit">Submit</button>
+      
+    </form></>
+
+    }
+    { !login && forget && register &&
+      <> <h2>Registeration Page </h2>
+    <form onSubmit={Registers}>
+      <label htmlFor="name">Name:</label>
+      <input type="text" id="name" name="name" value={name} onChange={(e) => setName(e.target.value)} required/>
+      <br /> <br />
+      <label htmlFor="email">Email:</label>
+      <input type="text" id="email" name="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)}  required/>
+      <br /> <br />
+      <label htmlFor="password" >Password:</label>
+      <input type="password" id="password" name="password" onChange={(e) => setPassword(e.target.value)} required/>
+      <br></br> <br /> 
+      <label htmlFor="confirm_password">Confirm Password:</label>
+      <input type="password" id="confirm_password" name="confirm_password" onChange={(e) => setConfirm(e.target.value)} required/>  
+      <br></br> <br />
+      <button type="submit">Submit</button>
+      
+    </form>
+    
+    </>
+    }
+
+    
+    {!forget &&
+    <> <h2>Change Password</h2>
+    <form onSubmit={Frogetpass}>
+    <label htmlFor="email">Email:</label>
+      <input type="text" id="email" name="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)}  required/>
+      <br /> <br />
+      <label htmlFor="password" >Password:</label>
+      <input type="password" id="password" name="password" onChange={(e) => setPassword(e.target.value)} required/>
+      <br></br> <br /> 
+      
+      <button type="submit">Change Password</button>
+      
+    </form>
+    </>
+    }
+
+    {forget && (login || register) && <button type="button" onClick={()=>(setLogin(!login) , setRegister(!register))}>{!login? "you have account ? login":"you don't have account ? register"}</button>}
+    {login && <button onClick={()=>setFroget(!forget)}>{forget?"Froget Password":"go to Login Page"}</button> }
+
+
+    {!login && !register &&
     <div className="container">
       <div className="nav"><h2>ToDo List</h2></div>
        
@@ -139,6 +256,8 @@ const Addandesearch = (e)=>{
           </div>
        
         </div>
+    }
+    </>
    
   )
 }
