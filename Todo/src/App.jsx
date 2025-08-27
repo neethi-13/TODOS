@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import './App.css'
 import axios from 'axios';
-//import { useEffect } from 'react';
+import { useEffect } from 'react';
 // import { FaTrash } from "react-icons/fa";  
 // import { MdDelete } from "react-icons/md";
 import { BsTrash, BsTrashFill } from "react-icons/bs";
@@ -13,7 +13,7 @@ const [datas , setDatas] = useState([]);
 const [length ,setLength] = useState(0);
 const [search , setSearch] = useState([]);
 const [loading , setLoading] = useState(true);
-const [login, setLogin] = useState(true);
+const [login, setLogin] = useState(false);
 const [register, setRegister] = useState(false);
 const [name,setName] = useState("");
 const [email, setEmail] = useState("");
@@ -38,9 +38,9 @@ const getAllusers = async ()=>{
     setLoading(false);
   });
 } 
-// useEffect(()=>{
-// getAllusers();
-// },[])
+useEffect(()=>{
+getAllusers();
+},[])
 
 
 
@@ -161,7 +161,7 @@ const Frogetpass = async (e) =>{
       <input type="text" id="email" name="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)}  required/>
       <br /> <br />
       <label htmlFor="password" >Password:</label>
-      <input type="password" id="password" name="password" onChange={(e) => setPassword(e.target.value)} required/>
+      <input type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
       <br></br> <br /> 
       
       <button type="submit">Submit</button>
@@ -179,10 +179,10 @@ const Frogetpass = async (e) =>{
       <input type="text" id="email" name="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)}  required/>
       <br /> <br />
       <label htmlFor="password" >Password:</label>
-      <input type="password" id="password" name="password" onChange={(e) => setPassword(e.target.value)} required/>
+      <input type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
       <br></br> <br /> 
       <label htmlFor="confirm_password">Confirm Password:</label>
-      <input type="password" id="confirm_password" name="confirm_password" onChange={(e) => setConfirm(e.target.value)} required/>  
+      <input type="password" id="confirm_password" name="confirm_password" value={confirm} onChange={(e) => setConfirm(e.target.value)} required/>  
       <br></br> <br />
       <button type="submit">Submit</button>
       
@@ -199,7 +199,7 @@ const Frogetpass = async (e) =>{
       <input type="text" id="email" name="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)}  required/>
       <br /> <br />
       <label htmlFor="password" >Password:</label>
-      <input type="password" id="password" name="password" onChange={(e) => setPassword(e.target.value)} required/>
+      <input type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
       <br></br> <br /> 
       
       <button type="submit">Change Password</button>
