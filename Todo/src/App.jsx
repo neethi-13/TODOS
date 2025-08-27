@@ -108,7 +108,7 @@ const Registers = async (e)=>{
       alert("Password and Confirm Password are not same");
       return;
     }
-    const res = axios.post("https://todos-a47z.onrender.com/register" , {name:name,email:email,password:password});
+    const res = await axios.post("https://todos-a47z.onrender.com/register" , {name:name,email:email,password:password});
     if(res.data.success){
       alert(res.data.message);
       setLogin(true);
