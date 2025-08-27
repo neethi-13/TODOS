@@ -112,6 +112,7 @@ const Registers = async (e)=>{
     if(res.data.success){
       alert(res.data.message);
       setLogin(true);
+      setRegister(false);
       setName("");
       setEmail("");
       setPassword("");
