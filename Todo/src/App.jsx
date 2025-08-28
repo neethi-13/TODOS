@@ -133,7 +133,7 @@ const Logins = async (e)=>{
     if(res.data.success){
       alert(res.data.message);
       setLogin(false);
-      setEmail("");
+      
       setPassword("");
       getAllusers();
       
@@ -210,6 +210,7 @@ const Frogetpass = async (e) =>{
     <div className='containers'> 
     <div className='nav'>
     <h2>Change Password</h2>
+   
     </div>
     <form onSubmit={Frogetpass}>
       <h2>Change Password</h2>
@@ -229,7 +230,11 @@ const Frogetpass = async (e) =>{
 
     {!login && !register &&
     <div className="container">
-      <div className="nav"><h2>ToDo List</h2></div>
+      <div className="nav-main">
+        <h2>ToDo List</h2>
+        <h2>{email}</h2>
+      </div>
+      
        
         <div className="input-search">
           <input type="text" placeholder='Enter Task or search Task'  value={addtask} onChange={Addandesearch}/>
