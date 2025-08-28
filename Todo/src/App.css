@@ -237,3 +237,22 @@ align-items: center;
   text-align: center;
   margin-bottom: 20px;
 }
+.nav-main{
+  position: fixed;
+  display: flex;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #0b7285;   /* your footer color */
+  color: white;
+  justify-content: space-between;
+  padding: 10px;
+  font-size: 14px;
+  z-index: 1;
+}
+.nav-main h2{
+  display: inline-block;
+  
+  
+}
+
