@@ -153,25 +153,32 @@ const Frogetpass = async (e) =>{
 
     <>
     {login && forget && 
-      <> <h2>Login Page </h2>
+      <div className='containers'> 
+      <div className='nav'>
+      <h2>Login Page </h2>
+      </div>
     <form onSubmit={Logins}>
       {/* <label for="name">Name:</label>
       <input type="text" id="name" name="name" required/>
       <br /> <br /> */}
+      <h2>Login</h2> <br />
       <label htmlFor="email">Email:</label>
       <input type="text" id="email" name="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)}  required/>
       <br /> <br />
       <label htmlFor="password" >Password:</label>
       <input type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
       <br></br> <br /> 
-      
-      <button type="submit">Submit</button>
-      
-    </form></>
+      <div className="log-btn">
+      <button type="submit" className='btn green'>Login</button>
+      {login && <button className='btn red' onClick={()=>setFroget(!forget)}>{forget?"Froget Password":"go to Login Page"}</button> }</div>
+    </form></div>
 
     }
     { !login && forget && register &&
-      <> <h2>Registeration Page </h2>
+      <div className='containers'> 
+      <div className='nav'>
+       <h2>Registeration Page </h2>
+      </div>
     <form onSubmit={Registers}>
       <label htmlFor="name">Name:</label>
       <input type="text" id="name" name="name" value={name} onChange={(e) => setName(e.target.value)} required/>
@@ -185,33 +192,37 @@ const Frogetpass = async (e) =>{
       <label htmlFor="confirm_password">Confirm Password:</label>
       <input type="password" id="confirm_password" name="confirm_password" value={confirm} onChange={(e) => setConfirm(e.target.value)} required/>  
       <br></br> <br />
-      <button type="submit">Submit</button>
+      <button type="submit" className='btn green'>Register</button>
       
     </form>
     
-    </>
+    </div>
     }
 
     
     {!forget &&
-    <> <h2>Change Password</h2>
+    <div className='containers'> 
+    <div className='nav'>
+    <h2>Change Password</h2>
+    </div>
     <form onSubmit={Frogetpass}>
+      <h2>Change Password</h2>
     <label htmlFor="email">Email:</label>
       <input type="text" id="email" name="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)}  required/>
       <br /> <br />
       <label htmlFor="password" >Password:</label>
       <input type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
       <br></br> <br /> 
-      
-      <button type="submit">Change Password</button>
-      
+      <div className="log-btn">
+      <button className='btn green' type="submit">Change Password</button>
+      {login && <button className='btn red' onClick={()=>setFroget(!forget)}>{forget?"Froget Password":"go to Login Page"}</button> }</div>
     </form>
-    </>
+    </div>
     }
-
-    {forget && (login || register) && <button type="button" onClick={()=>(setLogin(!login) , setRegister(!register))}>{!login? "you have account ? login":"you don't have account ? register"}</button>}
-    {login && <button onClick={()=>setFroget(!forget)}>{forget?"Froget Password":"go to Login Page"}</button> }
-
+    <div className='account'>
+    {forget && (login || register) && <button className='delete-btn' type="button" onClick={()=>(setLogin(!login) , setRegister(!register))}>{!login? "you have account ? Login":"you don't have account ? Register"}</button>}
+    
+</div>
 
     {!login && !register &&
     <div className="container">
