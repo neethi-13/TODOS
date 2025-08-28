@@ -53,7 +53,7 @@ app.post('/login' , async (req, res)=>{
       const us = await user.findOne({email:email});
       if(us){
         if(us.password === password){
-          res.json({success:true , message:"Login Successful"});
+          res.json({success:true , name:us.name ,message:"Login Successful"});
         }else{
           res.json({success:false , message:"Invalid Password"});
         }
@@ -69,6 +69,10 @@ app.post('/login' , async (req, res)=>{
 
 
 const TodoSchema = new mongoose.Schema({
+  email:{
+    type: String,
+    required: true
+  },
    id: {
     type: Number,
     default: Date.now   
@@ -86,16 +90,16 @@ const TodoSchema = new mongoose.Schema({
 const todo = mongoose.model("Todoslist" , TodoSchema , "Todoslist");
 
 app.post('/add', async(req ,res)=>{
-    const {title} = req.body;
+    const {title , email} = req.body;
     
 
     try {
-        console.log("Reached server");
-        const to = await todo.findOne({title:title});
+       // console.log("Reached server");
+        const to = await todo.findOne({email:email , title:title});
         if(to){
             return res.json({message:"Task is Already in List"});
         }
-        const newtodo = new todo({title});
+        const newtodo = new todo({ email:email , title:title});
         await newtodo.save();
         res.json({success:true ,message:"Task Added Successfully"});
    } catch(error) {
@@ -104,22 +108,23 @@ app.post('/add', async(req ,res)=>{
    }
 });
 app.get('/todos' , async (req,res)=>{
+  const email = req.body.email;
   try {
-    const data  = await todo.find();
+    const data  = await todo.find({email:email});
     if(!data || data.length === 0){
       res.json({message : "List is Empty"});
     }
     else{
       res.json(data);
-    }
+    } 
   } catch (error) {
     res.json(error);
   }
 }) 
 
-app.put('/done/:id' , async(req,res)=>{
+app.put('/done/:id/:email' , async(req,res)=>{
   let id = Number(req.params.id);
-  let todoDone = await todo.findOne({id:id});
+  let todoDone = await todo.findOne({email:email , id:id});
   if(!todoDone){
     res.json({success : false});
   }
@@ -129,10 +134,10 @@ app.put('/done/:id' , async(req,res)=>{
 
   
 })
-app.delete("/delete/:id", async (req,res)=>{
+app.delete("/delete/:id/:email", async (req,res)=>{
   try {
     let id = Number(req.params.id);
-    const deleteTodo = await todo.findOneAndDelete({id : id});
+    const deleteTodo = await todo.findOneAndDelete({ email:email ,id : id});
     if(!deleteTodo){
       res.json({success:false , message: "Task Not Found"});
       return
