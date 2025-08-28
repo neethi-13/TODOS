@@ -234,7 +234,7 @@ const Frogetpass = async (e) =>{
     <div className="container">
       <div className="nav-main">
         <h2>ToDo List</h2>
-        <h2>{email}</h2>
+        <h2>{name}</h2>
       </div>
       
        
