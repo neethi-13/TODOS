@@ -169,8 +169,10 @@ const Frogetpass = async (e) =>{
       <input type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
       <br></br> <br /> 
       <div className="log-btn">
-      <button type="submit" className='btn green'>Login</button>
-      {login && <button className='btn red' onClick={()=>setFroget(!forget)}>{forget?"Froget Password":"go to Login Page"}</button> }</div>
+        <button type="submit" className='btn green'>Login</button>
+        {login && <button className='btn red' onClick={()=>setFroget(!forget)}>{forget?"Froget Password":"go to Login Page"}</button> }
+      </div> <br /> you don't have account ?
+      {forget && (login || register) && <button className='delete-btn' type="button" onClick={()=>(setLogin(!login) , setRegister(!register))}> Register</button>}
     </form></div>
 
     }
@@ -180,6 +182,7 @@ const Frogetpass = async (e) =>{
        <h2>Registeration Page </h2>
       </div>
     <form onSubmit={Registers}>
+      <h2>Register</h2>
       <label htmlFor="name">Name:</label>
       <input type="text" id="name" name="name" value={name} onChange={(e) => setName(e.target.value)} required/>
       <br /> <br />
@@ -192,8 +195,11 @@ const Frogetpass = async (e) =>{
       <label htmlFor="confirm_password">Confirm Password:</label>
       <input type="password" id="confirm_password" name="confirm_password" value={confirm} onChange={(e) => setConfirm(e.target.value)} required/>  
       <br></br> <br />
+      <div className="log-btn">
       <button type="submit" className='btn green'>Register</button>
-      
+      </div>
+       you have account ?
+      {forget && (login || register) && <button className='delete-btn' type="button" onClick={()=>(setLogin(!login) , setRegister(!register))}>Login</button>}
     </form>
     
     </div>
@@ -219,10 +225,7 @@ const Frogetpass = async (e) =>{
     </form>
     </div>
     }
-    <div className='account'>
-    {forget && (login || register) && <button className='delete-btn' type="button" onClick={()=>(setLogin(!login) , setRegister(!register))}>{!login? "you have account ? Login":"you don't have account ? Register"}</button>}
     
-</div>
 
     {!login && !register &&
     <div className="container">
