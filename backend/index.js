@@ -108,7 +108,7 @@ app.post('/add', async(req ,res)=>{
    }
 });
 app.get('/todos' , async (req,res)=>{
-  const email = req.body.email;
+  const email = req.query.email;
   try {
     const data  = await todo.find({email:email});
     if(!data || data.length === 0){
