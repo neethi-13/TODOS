@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import './App.css'
 import axios from 'axios';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 // import { FaTrash } from "react-icons/fa";  
 // import { MdDelete } from "react-icons/md";
 import { BsTrash, BsTrashFill } from "react-icons/bs";
@@ -23,7 +23,9 @@ const [password, setPassword] = useState("");
 const [confirm, setConfirm] = useState("");
 
 const getAllusers = async ()=>{
-  await axios.get("https://todos-a47z.onrender.com/todos", {email:email}).then((res)=>{
+  await axios.get("https://todos-a47z.onrender.com/todos", {
+    params : {email : email}
+  }).then((res)=>{
     setLoading(true);
     if(res.data.message){
       //alert(res.data.message);
@@ -38,9 +40,9 @@ const getAllusers = async ()=>{
     setLoading(false);
   });
 } 
-useEffect(()=>{
-getAllusers();
-},[])
+// useEffect(()=>{
+// getAllusers();
+// },[])
 
 
 
