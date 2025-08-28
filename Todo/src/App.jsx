@@ -23,7 +23,7 @@ const [password, setPassword] = useState("");
 const [confirm, setConfirm] = useState("");
 
 const getAllusers = async ()=>{
-  await axios.get("https://todos-a47z.onrender.com/todos").then((res)=>{
+  await axios.get("https://todos-a47z.onrender.com/todos", {email:email}).then((res)=>{
     setLoading(true);
     if(res.data.message){
       //alert(res.data.message);
@@ -52,7 +52,7 @@ const AddTasks = async ()=>{
     
   }
   
-  const res = await axios.post("https://todos-a47z.onrender.com/add" , {title : addtask});
+  const res = await axios.post("https://todos-a47z.onrender.com/add" , {title : addtask, email:email});
   getAllusers();
   alert(res.data.message);
   if(res.data.success){
@@ -62,9 +62,9 @@ const AddTasks = async ()=>{
 
 }
 
-const handleDone = async (id) =>{
+const handleDone = async (id,email) =>{
   try {
-    const res = await axios.put(`https://todos-a47z.onrender.com/done/${id}`);
+    const res = await axios.put(`https://todos-a47z.onrender.com/done/${id}/${email}`);
     if(res.data.success){
       setDatas( data => data.map( to => to.id === id ? {...to , isDone : !to.isDone}: to));
     }
@@ -75,11 +75,11 @@ const handleDone = async (id) =>{
   }
 }
 
-const deletetask = async (title ,id)=>{
+const deletetask = async (title ,id , email)=>{
   try{
     const isdelete = window.confirm(`You wamt to delete the Task ${title}`);
     if(isdelete){
-        const res = await axios.delete(`https://todos-a47z.onrender.com/delete/${id}`);
+        const res = await axios.delete(`https://todos-a47z.onrender.com/delete/${id}/${email}`);
         if(res.data.success){
           alert(res.data.message);
           
@@ -133,7 +133,7 @@ const Logins = async (e)=>{
     if(res.data.success){
       alert(res.data.message);
       setLogin(false);
-      
+      setName(res.data.name);
       setPassword("");
       getAllusers();
       
@@ -259,9 +259,9 @@ const Frogetpass = async (e) =>{
                 return(
                   <tr key={data.id}>
                     <td>{index +1}</td>
-                    <td><input type="checkbox"  className='checked' name="" id="" checked={data.isDone} onChange={()=>{handleDone(data.id)}}/></td>
+                    <td><input type="checkbox"  className='checked' name="" id="" checked={data.isDone} onChange={()=>{handleDone(data.id, data.email)}}/></td>
                     <td>{data.title}</td>
-                    <td><button className='delete-btn' onClick={()=>{deletetask(data.title ,data.id )}}>{((index+1)%2 ===0 )? <BsTrash />:<BsTrashFill /> }</button></td>
+                    <td><button className='delete-btn' onClick={()=>{deletetask(data.title ,data.id , data.email )}}>{((index+1)%2 ===0 )? <BsTrash />:<BsTrashFill /> }</button></td>
                   </tr>
                 )
               })}
