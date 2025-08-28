@@ -124,9 +124,11 @@ app.get('/todos' , async (req,res)=>{
 
 app.put('/done/:id/:email' , async(req,res)=>{
   let id = Number(req.params.id);
+  let email = req.params.email;
   let todoDone = await todo.findOne({email:email , id:id});
   if(!todoDone){
     res.json({success : false});
+    return;
   }
   todoDone.isDone = !todoDone.isDone;
   await todoDone.save();
@@ -137,6 +139,7 @@ app.put('/done/:id/:email' , async(req,res)=>{
 app.delete("/delete/:id/:email", async (req,res)=>{
   try {
     let id = Number(req.params.id);
+    let email = req.params.email;
     const deleteTodo = await todo.findOneAndDelete({ email:email ,id : id});
     if(!deleteTodo){
       res.json({success:false , message: "Task Not Found"});
